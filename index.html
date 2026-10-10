@@ -207,8 +207,8 @@ document.addEventListener('click', async function(event) {
   }
   return out;
  };
- const drawWrapped = (text,x,y,maxWidth,lineHeight,font,color,maxLines) => {
-  const lines=wrapText(text,maxWidth,font).slice(0,maxLines||99);ctx.font=font;ctx.fillStyle=color;
+ const drawWrapped = (text,x,y,maxWidth,font,color,maxLines) => {
+  const lines=wrapText(text,maxWidth,font).slice(0,maxLines||99),match=font.match(/(\\d+)px/),lineHeight=(match?Number(match[1]):20)+10;ctx.font=font;ctx.fillStyle=color;
   lines.forEach((line,i)=>ctx.fillText(line,x,y+i*lineHeight));
   return y+lines.length*lineHeight;
  };
@@ -260,11 +260,11 @@ document.addEventListener('click', async function(event) {
   if(movingIndex>=0){ctx.fillText('第'+(6-movingIndex)+'爻动',780,y+225);}
   y+=300;
   ctx.textAlign='left';ctx.font='bold 25px "Noto Serif CJK SC","Songti SC",serif';ctx.fillStyle='#8c6a30';ctx.fillText('卦象解读',92,y);y+=38;
-  y=drawWrapped(intro,92,y,896,'21px sans-serif','#263735',32)+12;
+  y=drawWrapped(intro,92,y,896,'21px sans-serif','#263735',3)+12;
   ctx.font='bold 23px "Noto Serif CJK SC","Songti SC",serif';ctx.fillStyle='#8c6a30';ctx.fillText('动爻提示',92,y);y+=34;
-  y=drawWrapped(lineText,92,y,896,'20px sans-serif','#263735',30)+10;
+  y=drawWrapped(lineText,92,y,896,'20px sans-serif','#263735',3)+10;
   ctx.font='bold 23px "Noto Serif CJK SC","Songti SC",serif';ctx.fillStyle='#8c6a30';ctx.fillText('行动参考',92,y);y+=34;
-  y=drawWrapped(actionText,92,y,896,'20px sans-serif','#263735',30,4)+12;
+  y=drawWrapped(actionText,92,y,896,'20px sans-serif','#263735',4)+12;
   ctx.strokeStyle='#d5c8a9';ctx.beginPath();ctx.moveTo(92,1240);ctx.lineTo(988,1240);ctx.stroke();
   ctx.textAlign='center';ctx.font='17px sans-serif';ctx.fillStyle='#7a7568';ctx.fillText('传统文化体验 · 仅供参考，不构成确定预测',540,1276);
   ctx.font='bold 19px sans-serif';ctx.fillStyle='#31564b';ctx.fillText(window.location.href.split('#')[0],540,1306);
