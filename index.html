@@ -5,6 +5,22 @@
 <style>
 :root{--bg:#e8ece6;--paper:#f8f7f0;--ink:#1a2b2b;--muted:#64716d;--line:#c4cec6;--red:#a7352d;--gold:#b88b4a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}header{padding:30px 16px 24px;text-align:center;background:var(--ink);color:#f5f1e7}header small{color:#ffdf91;letter-spacing:.14em;font-weight:800}h1{font-family:"Songti SC",serif;font-size:clamp(30px,7vw,44px);letter-spacing:.18em;margin:5px 0}header p{margin:0;color:#e5f5f1;font-size:15px}main{width:min(760px,100%);padding:20px 14px 48px;margin:auto}.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:15px;box-shadow:0 12px 34px #14262510}h2{font-size:18px;margin:0 0 10px}.small{font-size:13px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.field{display:grid;gap:5px;font-size:13px;color:var(--muted)}input{width:100%;min-width:0;padding:11px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:16px} .btn{border:0;border-radius:14px;padding:12px 16px;background:#287a73;color:#fff;font:inherit;font-weight:750;cursor:pointer;min-height:44px}.btn.alt{background:#dfe5dc;color:var(--ink);border:1px solid var(--line)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.resultbox{margin-top:11px;padding:10px 12px;border-left:3px solid var(--gold);background:#ebece4;border-radius:4px}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.tab{padding:12px;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--ink);font:inherit;cursor:pointer} .tab[aria-selected=true]{background:#276b68;color:#fff;border-color:#276b68;box-shadow:0 4px 0 #b5ded4}.panel[hidden]{display:none}.result{margin-top:14px}.result:empty{display:none}.resulthead{text-align:center;border-bottom:1px solid var(--line);padding:8px 0 15px}.pill{display:inline-block;padding:3px 9px;border-radius:99px;background:#e7e0cf;color:#65502c;font-size:12px}.hexpair{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:18px 0}.hexbox{width:140px;text-align:center}.hex{display:flex;flex-direction:column;gap:7px;width:100px;margin:10px auto}.line{height:9px;display:flex;gap:10px;position:relative}.line span{background:var(--ink);flex:1;border-radius:1px}.line.yin span:first-child,.line.yin span:last-child{display:block}.line.yang span:last-child{display:none}.line.moving span{background:var(--red)}.line.moving:after{content:"动";position:absolute;right:-22px;top:-8px;font-size:12px;color:var(--red)}.hexname{font-size:17px;font-weight:700}.hex-label{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.08em}.line-row{display:grid;grid-template-columns:22px 1fr 54px;align-items:center;gap:5px;width:100%;height:13px}.line-row .hex{margin:0}.line-index,.line-kind{font-size:10px;color:var(--muted);white-space:nowrap}.line-row .line{width:78px;height:8px;gap:7px}.line-row.is-moving .line-index,.line-row.is-moving .line-kind{color:var(--red);font-weight:700}.hexbox .hex{width:100%;gap:7px}.caption{font-size:12px;color:var(--muted)}.calc{background:#ecefe8;border-radius:9px;padding:12px;margin-top:12px;font-size:13px;overflow-wrap:anywhere}.calc div+div{margin-top:5px}.advice{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.error{color:#a32222;font-size:13px}.footer{text-align:center;color:var(--muted);font-size:12px;padding-top:4px}@media(min-width:600px){main{padding-top:26px}.card{padding:22px}}
 
+/* App installation entry */
+.install-wrap{position:absolute;top:14px;right:16px;z-index:5}
+.install-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:9px 14px;border:1px solid #ffe39d;border-radius:999px;background:#ffe39d;color:#244d4c;font:inherit;font-size:13px;font-weight:850;cursor:pointer;box-shadow:0 4px 14px #0002}
+.install-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.install-btn:focus-visible,.install-close:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.install-dialog[hidden]{display:none}
+.install-dialog{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px;background:#102a29a8}
+.install-box{width:min(430px,100%);padding:22px;border-radius:22px;background:#fbfaf5;color:#1a2b2b;box-shadow:0 20px 70px #0004;border:1px solid #d7e7df}
+.install-box h2{margin:0 38px 8px 0;font-size:22px}
+.install-box p{font-size:14px;line-height:1.7;margin:9px 0}
+.install-box .install-steps{padding:12px 14px;border-radius:14px;background:#edf6f2}
+.install-close{float:right;border:0;border-radius:50%;width:36px;height:36px;background:#e3eee8;color:#244d4c;font-size:22px;cursor:pointer}
+.install-foot{font-size:12px!important;color:#64716d}
+@media(max-width:520px){header{padding-top:76px}.install-wrap{top:12px;right:12px}.install-btn{min-height:40px;padding:8px 12px;font-size:12px}}
+@media(min-width:521px){header{padding-top:36px}.install-wrap{top:16px;right:18px}}
+
 /* visual upgrade */
 header{position:relative;overflow:hidden;background:radial-gradient(circle at 12% 12%,#5ab9ad 0,transparent 35%),radial-gradient(circle at 88% 5%,#f2c66d 0,transparent 27%),linear-gradient(135deg,#276b68 0%,#274d66 58%,#5b5188 100%);padding-bottom:34px}
 header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;border:1px solid #b88b4a55;border-radius:50%;pointer-events:none}
@@ -40,7 +56,7 @@ header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;bo
 .checkin-card{position:relative;overflow:hidden;background:linear-gradient(135deg,#203b37 0%,#172627 75%);border:1px solid #b88b4a;color:#f7f0df}.checkin-card:after{content:"☯";position:absolute;right:-10px;bottom:-55px;font-size:170px;line-height:1;color:#f0d39a;opacity:.055;pointer-events:none}.checkin-card h2{margin:2px 0 4px;color:#f7f0df;font-family:"Songti SC",serif;font-size:22px}.checkin-card .small{color:#c2ceca}.checkin-top{display:flex;justify-content:space-between;align-items:center;gap:14px}.checkin-eyebrow{font-size:10px;letter-spacing:.2em;color:#d7b574;font-weight:800}.streak-medal{width:86px;height:86px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #b88b4a;border-radius:50%;background:#ffffff08;color:#e8c987;font-size:13px}.streak-medal b{font-size:25px;line-height:1.2;color:#fff4d7}.streak-medal small{font-size:10px;color:#c2ceca}.checkin-status{position:relative;z-index:1;margin-top:14px;padding:11px 12px;border-radius:9px;background:#ffffff0c;color:#e7e9df;font-size:13px}.checkin-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}.checkin-card .btn{background:#d7b574;color:#172627}.checkin-card .btn:disabled{background:#52655c;color:#e6eee5;cursor:default}.checkin-footnote{font-size:11px;color:#b8c5bd}.streak-track{height:6px;background:#ffffff20;border-radius:99px;margin-top:16px;overflow:hidden}.streak-track span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#b88b4a,#f0d39a);transition:width .25s ease}.checkin-milestone{position:relative;z-index:1;margin:8px 0 0;color:#d7b574;font-size:12px}@media(max-width:390px){.streak-medal{width:72px;height:72px}.checkin-card h2{font-size:20px}.checkin-actions{align-items:flex-start;flex-direction:column}}
 .privacy-kids{padding:9px 11px;border-radius:10px;background:#fff4d6;color:#735a30}.card{border-radius:20px;border-color:#d7e7df;box-shadow:0 8px 24px #1c51400b}.domain-card{border-radius:15px}.quick-question-wrap{background:#edf6f2;border:1px solid #d3e9df}.quick-question{border-radius:14px;background:#fff;border-color:#c6e2d7;color:#276b68;font-weight:700;min-height:42px}.checkin-card{background:linear-gradient(135deg,#276b68,#345879 80%);border-color:#bde7d7;border-radius:20px}.checkin-card .btn{background:#ffe39d;color:#244d4c;border-radius:14px}.share-panel{border-radius:18px}.hero-note{max-width:360px;margin-left:auto!important;margin-right:auto!important}
 </style></head><body>
-<header><small>好奇 · 勇气 · 每天进步一点点</small><h1>小小卦象探索家</h1><p>把古老八卦变成轻松有趣的灵感游戏！</p><div class="brand-mark" aria-label="八卦图"><span class="trigram">乾</span><span class="trigram">兑</span><span class="trigram">离</span><span class="trigram">震</span><span class="trigram">坤</span><span class="trigram">艮</span><span class="trigram">坎</span><span class="trigram">巽</span></div><div class="hero-actions"><button class="hero-btn" id="heroDaily" type="button">🌈 抽一张今日灵感卡</button><button class="hero-btn secondary" id="heroQuestion" type="button">💡 我有一个小问题</button></div><p class="hero-note">不比较运气 · 不给未来打分 · 每天发现一个新点子</p></header><main>
+<header><div class="install-wrap"><button class="install-btn" id="installAppBtn" type="button" aria-haspopup="dialog" aria-controls="installHelp"><span aria-hidden="true">📲</span> 下载安装 App</button></div><small>好奇 · 勇气 · 每天进步一点点</small><h1>小小卦象探索家</h1><p>把古老八卦变成轻松有趣的灵感游戏！</p><div class="brand-mark" aria-label="八卦图"><span class="trigram">乾</span><span class="trigram">兑</span><span class="trigram">离</span><span class="trigram">震</span><span class="trigram">坤</span><span class="trigram">艮</span><span class="trigram">坎</span><span class="trigram">巽</span></div><div class="hero-actions"><button class="hero-btn" id="heroDaily" type="button">🌈 抽一张今日灵感卡</button><button class="hero-btn secondary" id="heroQuestion" type="button">💡 我有一个小问题</button></div><p class="hero-note">不比较运气 · 不给未来打分 · 每天发现一个新点子</p></header><div class="install-dialog" id="installHelp" role="dialog" aria-modal="true" aria-labelledby="installTitle" hidden><div class="install-box"><button class="install-close" id="closeInstallHelp" type="button" aria-label="关闭">×</button><h2 id="installTitle">📲 把灵感乐园放到主屏幕</h2><p id="installIntro">安装后，可以从手机主屏幕快速打开。</p><div class="install-steps" id="installSteps"></div><p class="install-foot">这是网站快捷安装功能，不需要注册账号。不同浏览器的菜单名称可能略有不同。</p><button class="btn" id="installOkay" type="button">知道了</button></div></div><main>
 <div class="tabs" role="tablist"><button class="tab" id="dt" role="tab" aria-selected="true">今日灵感</button><button class="tab" id="qt" role="tab" aria-selected="false">我的小问题</button></div>
 <section class="card panel" id="dp"><h2>🌟 今日灵感卡</h2><p class="small">抽一张传统文化灵感卡，看看今天可以练习什么小本领。它不是预言，也不会决定你今天会发生什么。</p><button class="btn" id="daily">✨ 抽取我的灵感卡</button><div id="dr" class="result" aria-live="polite"></div></section>
 <section class="card checkin-card" id="checkinPanel" aria-label="每日卦签打卡"><div class="checkin-top"><div><span class="checkin-eyebrow">DAILY RITUAL</span><h2>🌱 每日成长打卡</h2><p class="small">每天试试一个小挑战，不用和别人比较，愿意尝试就值得开心。</p></div><div class="streak-medal" aria-hidden="true">✦<b id="streakNumber">0</b><small>连续天数</small></div></div><div class="checkin-status" id="checkinStatus" aria-live="polite">今天准备练习哪一个小本领？完成后记得给自己打卡。</div><div class="checkin-actions"><button class="btn" id="checkinBtn" type="button">🌟 记录今天</button><span class="checkin-footnote">不需要账号；记录只保存在这台设备的浏览器</span></div><div class="streak-track" aria-label="连续七天打卡进度"><span id="streakProgress" style="width:0%"></span></div><p class="checkin-milestone" id="checkinMilestone">从今天开始，建立属于自己的每日小仪式。</p></section>
@@ -237,6 +253,47 @@ function saveHistory(c,title,q){
  const reading=HEXREADINGS[upperName]||{theme:'观察与调整',action:'先采取风险较低、可复核的小步骤。'};
  const item={id:String(Date.now())+'-'+Math.random().toString(36).slice(2,8),time:c.date.toISOString(),title,question:q||'',original:upperName,changed:changedName,moving:c.moving,theme:reading.theme,action:title==='今日灵感'?dailyReading(c):(classifyQuestion(q).advice),favorite:false};
  const items=getHistory();items.unshift(item);if(!putHistory(items))document.getElementById('historyNotice').textContent='本次结果已生成，但浏览器存储空间不足，未能保存记录。';else document.getElementById('historyNotice').textContent='已自动保存本次起卦记录。';renderHistory();
+// Progressive Web App installation: use native prompt when available; otherwise show device-specific steps.
+let deferredInstallPrompt=null;
+const installButton=document.getElementById('installAppBtn');
+const installDialog=document.getElementById('installHelp');
+const installSteps=document.getElementById('installSteps');
+const installIntro=document.getElementById('installIntro');
+function closeInstallDialog(){installDialog.hidden=true;installButton.focus()}
+function showInstallHelp(){
+ const ua=navigator.userAgent||'';
+ const isIOS=/iPad|iPhone|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+ const isAndroid=/Android/i.test(ua);
+ const isSafari=/Safari/i.test(ua)&&!/Chrome|CriOS|Edg|OPR|FxiOS/i.test(ua);
+ if(isIOS&&isSafari){
+  installIntro.textContent='在 iPhone 或 iPad 上，用 Safari 将网站加入主屏幕：';
+  installSteps.innerHTML='<b>1.</b> 点击 Safari 底部（或顶部）的「分享」图标 <b>□↑</b><br><b>2.</b> 向下找到「加入主屏幕」<br><b>3.</b> 点击右上角「添加」';
+ }else if(isIOS){
+  installIntro.textContent='为获得最佳安装体验，请先在 iPhone 或 iPad 上用 Safari 打开本网站。';
+  installSteps.innerHTML='打开 Safari → 访问本网站 → 点击「分享」□↑ →「加入主屏幕」→「添加」。';
+ }else if(isAndroid){
+  installIntro.textContent='在 Android 手机上，可通过浏览器菜单安装或添加到主屏幕：';
+  installSteps.innerHTML='在 Chrome 中打开本网站 → 点击右上角「⋮」菜单 → 选择「安装应用」；如果没有此选项，请选择「添加到主屏幕」。';
+ }else{
+  installIntro.textContent='在电脑浏览器中，可以尝试将网站安装为应用：';
+  installSteps.innerHTML='在 Chrome 或 Edge 中打开本网站 → 查看地址栏右侧的安装图标，或打开浏览器菜单 → 选择「安装页面为应用」或「安装应用」。若未出现安装选项，也可以将网站加入书签。';
+ }
+ installDialog.hidden=false;
+ document.getElementById('closeInstallHelp').focus();
+}
+window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstallPrompt=event;installButton.innerHTML='<span aria-hidden="true">📲</span> 下载安装 App';});
+window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;installButton.innerHTML='<span aria-hidden="true">✓</span> App 已安装';});
+installButton.addEventListener('click',async()=>{
+ if(deferredInstallPrompt){
+  try{deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;if(choice&&choice.outcome==='accepted'){installButton.innerHTML='<span aria-hidden="true">✓</span> 已开始安装'}else{showInstallHelp()}}
+  catch(e){showInstallHelp()}
+ }else{showInstallHelp()}
+});
+document.getElementById('closeInstallHelp').addEventListener('click',closeInstallDialog);
+document.getElementById('installOkay').addEventListener('click',closeInstallDialog);
+installDialog.addEventListener('click',event=>{if(event.target===installDialog)closeInstallDialog()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!installDialog.hidden)closeInstallDialog()});
+
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
 }
 function renderHistory(){
