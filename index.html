@@ -49,7 +49,7 @@ header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;bo
  </div>
  <div class="visitor-state">累计页面访问量 · 不等于独立访客人数</div>
 </section><p class="footer">八卦运势 · 仅供文化体验</p></main>
-<script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js"></script><script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js"></script><script>
 'use strict';
 const T={1:{n:'乾',b:[1,1,1],e:'天',m:'刚健自强，宜主动而不逞强。'},2:{n:'兑',b:[1,1,0],e:'泽',m:'以沟通和悦化解阻力。'},3:{n:'离',b:[1,0,1],e:'火',m:'看清重点，适合表达与展示。'},4:{n:'震',b:[1,0,0],e:'雷',m:'变化中保持行动，也要留意细节。'},5:{n:'巽',b:[0,1,1],e:'风',m:'顺势协调，耐心推进。'},6:{n:'坎',b:[0,1,0],e:'水',m:'谨慎识险，先稳住基础。'},7:{n:'艮',b:[0,0,1],e:'山',m:'适时暂停，守住边界。'},8:{n:'坤',b:[0,0,0],e:'地',m:'厚实承接，合作比争先重要。'}};
 const B={'子':1,'丑':2,'寅':3,'卯':4,'辰':5,'巳':6,'午':7,'未':8,'申':9,'酉':10,'戌':11,'亥':12},H=[['丑',1],['寅',3],['卯',5],['辰',7],['巳',9],['午',11],['未',13],['申',15],['酉',17],['戌',19],['亥',21]];
@@ -248,6 +248,16 @@ document.addEventListener('click', async function(event) {
   ctx.font='44px serif';ctx.textAlign='center';ctx.fillStyle='#b88b4a';ctx.fillText('☯',540,135);
   ctx.font='bold 34px "Noto Serif CJK SC","Songti SC",serif';ctx.fillStyle='#172627';ctx.fillText('八 卦 运 势',540,202);
   ctx.font='20px sans-serif';ctx.fillStyle='#7a6a4c';ctx.fillText('本卦 · 动爻 · 变卦',540,239);
+  const siteUrl=window.location.href.split('#')[0];
+  if(!window.QRCode) throw new Error('二维码组件暂时未能加载，请检查网络后刷新网页再生成分享卡。');
+  const qrHolder=document.createElement('div');
+  new QRCode(qrHolder,{text:siteUrl,width:132,height:132,colorDark:'#172627',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+  const qrCanvas=qrHolder.querySelector('canvas');
+  if(!qrCanvas) throw new Error('二维码生成失败，请刷新网页后重试。');
+  ctx.fillStyle='#ffffff';ctx.fillRect(850,78,156,174);
+  ctx.strokeStyle='#d9c59d';ctx.lineWidth=1;ctx.strokeRect(850,78,156,174);
+  ctx.drawImage(qrCanvas,862,90,132,132);
+  ctx.font='bold 17px sans-serif';ctx.fillStyle='#31564b';ctx.textAlign='center';ctx.fillText('扫码访问网站',928,239);
   ctx.strokeStyle='#b88b4a';ctx.beginPath();ctx.moveTo(100,270);ctx.lineTo(980,270);ctx.stroke();
   ctx.font='bold 42px "Noto Serif CJK SC","Songti SC",serif';ctx.fillStyle='#172627';ctx.fillText(originalName+'  →  '+changedName,540,329);
   ctx.font='19px sans-serif';ctx.fillStyle='#6a756f';ctx.fillText(dateText.slice(0,35),540,366);
