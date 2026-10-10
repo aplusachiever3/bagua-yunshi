@@ -322,8 +322,8 @@ document.addEventListener('click', async function(event) {
   ctx.strokeStyle='#b88b4a';ctx.lineWidth=2;ctx.strokeRect(34,34,1012,1282);ctx.strokeStyle='#d9c59d';ctx.lineWidth=1;[[58,58,1,1],[1022,58,-1,1],[58,1292,1,-1],[1022,1292,-1,-1]].forEach(([x,y,dx,dy])=>{ctx.beginPath();ctx.moveTo(x,y+dy*42);ctx.lineTo(x,y);ctx.lineTo(x+dx*42,y);ctx.stroke()});
   ctx.strokeStyle='#d9c59d';ctx.lineWidth=1;ctx.beginPath();ctx.arc(540,120,42,0,Math.PI*2);ctx.stroke();
   ctx.font='44px serif';ctx.textAlign='center';ctx.fillStyle='#b88b4a';ctx.fillText('☯',540,135);
-  ctx.font='bold 34px "Noto Serif CJK SC","Songti SC",serif';ctx.fillStyle='#172627';ctx.fillText('八 卦 运 势',540,202);
-  ctx.font='20px sans-serif';ctx.fillStyle='#7a6a4c';ctx.fillText('本卦 · 动爻 · 变卦',540,239);
+  ctx.font='bold 34px "Noto Serif CJK SC","Songti SC",serif';ctx.fillStyle='#172627';ctx.fillText('小小卦象探索家',540,202);
+  ctx.font='20px sans-serif';ctx.fillStyle='#7a6a4c';ctx.fillText('传统文化 · 今日灵感 · 小小行动',540,239);
   const siteUrl=SITE_URL;
   if(!window.QRCode) throw new Error('二维码组件暂时未能加载，请检查网络后刷新网页再生成分享卡。');
   const qrHolder=document.createElement('div');
