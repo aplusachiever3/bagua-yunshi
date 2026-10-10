@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>八卦运势</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e3e8e2;--ink:#18282a;--sub:#5a6b69;--line:#b9c4bf;--red:#b0332a;--card:#eef2ed;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1b1c;--ink:#e2e8e0;--sub:#8fa19e;--line:#2c3e3e;--red:#e0584b;--card:#152425}}
+:root[data-theme="dark"]{--bg:#0f1b1c;--ink:#e2e8e0;--sub:#8fa19e;--line:#2c3e3e;--red:#e0584b;--card:#152425}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Serif SC","Songti SC","STSong",serif;line-height:1.8}
+main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
+h1{font-size:40px;font-weight:900;letter-spacing:.3em;margin:0;text-align:center;padding-left:.3em}
+.tag{text-align:center;color:var(--sub);font-size:14px;margin:4px 0 0}
+svg.ring{display:block;width:260px;height:260px;margin:18px auto 8px}
+.ring text{font-size:26px;fill:var(--sub);text-anchor:middle;dominant-baseline:central;transition:fill .4s}
+.ring .on{fill:var(--red)}
+.ring circle{fill:none;stroke:var(--line)}
+.ring .tj{font-size:15px;fill:var(--ink)}
+form{display:grid;gap:12px;margin-top:8px}
+label{font-size:13px;color:var(--sub);display:grid;gap:4px}
+input{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;width:100%}
+input:focus,button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+button{font:inherit;font-size:17px;font-weight:600;letter-spacing:.4em;padding:13px;background:var(--red);color:#fff;border:0;border-radius:6px;cursor:pointer}
+button:disabled{opacity:.6}
+#res{margin-top:28px}
+.hex{display:flex;flex-direction:column;gap:9px;width:150px;margin:0 auto}
+.yao{display:flex;gap:14px;height:12px;opacity:0;transition:opacity .3s;position:relative}
+.yao.show{opacity:1}
+.yao i{flex:1;background:var(--ink);border-radius:1px}
+.yao.mv i{background:var(--red)}
+.yao.mv::after{content:"○";position:absolute;right:-24px;top:-6px;font-size:14px;color:var(--red);font-style:normal;line-height:1.6}
+.yao.yin i:nth-child(1){flex:1}
+.yao.yang i:nth-child(2){display:none}
+.ttl{text-align:center;margin:20px 0 4px;font-size:22px;font-weight:600}
+.gist{text-align:center;color:var(--sub);margin:0 0 20px;font-size:15px}
+.sc{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:baseline;border-top:1px solid var(--line);padding:12px 0}
+.sc b{font-size:16px}
+.bar{height:3px;background:var(--line);align-self:center}
+.bar span{display:block;height:100%;background:var(--red)}
+.sc em{font-style:normal;color:var(--sub);font-size:14px}
+.sc p{grid-column:1/-1;margin:0;font-size:15px}
+.lucky{border-top:1px solid var(--line);padding-top:14px;display:flex;justify-content:space-between;text-align:center;font-size:14px;color:var(--sub)}
+.lucky b{display:block;color:var(--ink);font-size:18px}
+.mvn{border-top:1px solid var(--line);padding:14px 0;font-size:15px}
+.foot{margin-top:28px;text-align:center;font-size:12px;color:var(--sub)}
+</style>
+</head>
+<body>
+<main>
+<h1>八卦运势</h1>
+<p class="tag">以生辰与当日起卦，每日一卦</p>
+<svg class="ring" viewBox="-130 -130 260 260" aria-hidden="true"><circle r="124"/><circle r="62"/><text class="tj" id="tj">☯</text></svg>
+<form id="f">
+<label>出生日期<input type="date" id="bd" required></label>
+<label>心中所问（可不填）<input type="text" id="q" maxlength="30" placeholder="例如：这周的面试"></label>
+<button id="go">起卦</button>
+</form>
+<section id="res" aria-live="polite"></section>
+<p class="foot">传统文化娱乐，不构成任何决策建议</p>
+</main>
+<script>
+const T={
+'111':{n:'乾',s:'☰',img:'天',el:'金',dir:'西北',col:'白色',g:'刚健自强，宜主动出击',c:'有领导机会，担当会被看见',l:'姿态太强，对方需要被倾听',w:'进取得财，大额支出要三思',h:'精力旺盛，别透支睡眠'},
+'110':{n:'兑',s:'☱',img:'泽',el:'金',dir:'正西',col:'银白',g:'喜悦和悦，口才是今日助力',c:'沟通顺畅，适合谈合作与汇报',l:'聊得来，轻松的相处最加分',w:'小财可得，忌口头承诺',h:'注意喉咙与用声，多喝水'},
+'101':{n:'离',s:'☲',img:'火',el:'火',dir:'正南',col:'红色',g:'光明显现，宜表达与展示',c:'表现机会多，成果易被认可',l:'热情升温，别因急躁起争执',w:'名带来利，开销容易冲动',h:'火气偏旺，留意眼睛与情绪'},
+'100':{n:'震',s:'☳',img:'雷',el:'木',dir:'正东',col:'青色',g:'震动奋起，变化带来新机',c:'节奏加快，先动手再完善',l:'进展突然，给彼此一点缓冲',w:'有意外进账，也有意外花费',h:'易受惊扰，留意作息节奏'},
+'011':{n:'巽',s:'☴',img:'风',el:'木',dir:'东南',col:'绿色',g:'顺势渗透，宜细致沟通',c:'细水长流，适合协调与规划',l:'温柔体贴，别犹豫不决',w:'稳步积累，投资宜分散',h:'留意肠胃与呼吸，通风散步'},
+'010':{n:'坎',s:'☵',img:'水',el:'水',dir:'正北',col:'黑蓝',g:'险中求稳，宜谨慎行事',c:'有难题，拆成小步逐个解决',l:'心事偏重，把话说出来更好',w:'有风险，先守后攻',h:'注意肾与睡眠，少熬夜'},
+'001':{n:'艮',s:'☶',img:'山',el:'土',dir:'东北',col:'褐色',g:'止而后安，宜静不宜躁',c:'守住阵地，今天不适合冒进',l:'需要空间，不必强求回应',w:'守成为上，不乱加仓',h:'腰背易僵，适当拉伸'},
+'000':{n:'坤',s:'☷',img:'地',el:'土',dir:'西南',col:'黄色',g:'厚德载物，宜包容配合',c:'幕后出力，配合带来回报',l:'包容度高，关系稳定温暖',w:'踏实积累，不求暴利',h:'脾胃宜养，规律饮食'}};
+const MV=['初爻动：刚起步，宜蓄势，不宜冒进。','二爻动：贵人在身边，主动请教会有收获。','三爻动：处在转折点，多检查细节。','四爻动：进退之间，顺应大局比坚持己见好。','五爻动：位置最佳，把握机会，行事要稳。','上爻动：事近圆满，见好就收，留有余地。'];
+const GEN={木:'火',火:'土',土:'金',金:'水',水:'木'};
+const ORDER=['101','000','110','111','010','001','100','011'];
+const svg=document.querySelector('.ring');
+ORDER.forEach((k,i)=>{const a=i*Math.PI/4-Math.PI/2,t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',(93*Math.cos(a)).toFixed(1));t.setAttribute('y',(93*Math.sin(a)).toFixed(1));t.id='t'+k;t.textContent=T[k].s;svg.insertBefore(t,document.getElementById('tj'))});
+function hs(s){let x=2166136261;for(const c of s){x^=c.charCodeAt(0);x=Math.imul(x,16777619)}return x>>>0}
+function rn(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function rel(u,l){return GEN[u]===l?8:GEN[l]===u?4:u===l?5:-6}
+const tb=document.getElementById('bd');
+try{const s=localStorage.getItem('bd');if(s)tb.value=s}catch(e){}
+document.getElementById('f').addEventListener('submit',e=>{
+e.preventDefault();
+const bd=tb.value,q=document.getElementById('q').value.trim();
+try{localStorage.setItem('bd',bd)}catch(e){}
+const d=new Date(),day=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+const r=rn(hs(bd+'|'+day+'|'+q));
+const ln=[...Array(6)].map(()=>r()<.5?1:0);
+const mv=Math.floor(r()*6);
+const lk=ln.slice(0,3).join(''),uk=ln.slice(3).join('');
+const L=T[lk],U=T[uk],b=rel(U.el,L.el);
+const sc=()=>Math.max(38,Math.min(98,Math.round(54+r()*34+b)));
+const items=[['事业',sc(),U.c],['感情',sc(),L.l],['财运',sc(),U.w],['健康',sc(),L.h]];
+const all=Math.round(items.reduce((a,x)=>a+x[1],0)/4);
+const num=Math.floor(r()*9)+1;
+document.querySelectorAll('.ring text').forEach(t=>t.classList.remove('on'));
+const hx=ln.map((v,i)=>({v,i})).reverse().map(o=>`<div class="yao ${o.v?'yang':'yin'} ${o.i===mv?'mv':''}" data-i="${o.i}"><i></i><i></i></div>`).join('');
+const res=document.getElementById('res');
+res.innerHTML=`<div class="hex">${hx}</div><div id="rest" hidden></div>`;
+const btn=document.getElementById('go');btn.disabled=true;
+const fast=matchMedia('(prefers-reduced-motion:reduce)').matches,step=fast?0:380;
+res.scrollIntoView({behavior:fast?'auto':'smooth',block:'start'});
+for(let i=0;i<6;i++)setTimeout(()=>res.querySelector(`[data-i="${i}"]`).classList.add('show'),i*step);
+setTimeout(()=>{
+document.getElementById('t'+lk).classList.add('on');document.getElementById('t'+uk).classList.add('on');
+document.getElementById('tj').textContent=all;
+const rest=document.getElementById('rest');rest.hidden=false;
+rest.innerHTML=`<div class="ttl">上${U.n}下${L.n}　${U.img}${L.img}之象</div><p class="gist">${U.g}；${L.g.split('，')[0]}</p>`+
+items.map(x=>`<div class="sc"><b>${x[0]}</b><div class="bar"><span style="width:${x[1]}%"></span></div><em>${x[1]}</em><p>${x[2]}。</p></div>`).join('')+
+`<div class="mvn">${MV[mv]}</div><div class="lucky"><div>幸运色<b>${L.col}</b></div><div>吉方位<b>${U.dir}</b></div><div>幸运数<b>${num}</b></div></div>`;
+btn.disabled=false;btn.textContent='重新起卦';
+},6*step+100);
+});
+</script>
+</body>
+</html>
