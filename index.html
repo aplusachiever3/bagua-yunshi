@@ -181,7 +181,8 @@ function show(id,fn){let out=document.getElementById(id);try{out.innerHTML=fn()}
 document.getElementById('convert').onclick=convert;document.getElementById('reset').onclick=()=>{by.value=1990;bm.value=6;bd.value=15;convert()};
 function tab(q){dt.setAttribute('aria-selected',String(!q));qt.setAttribute('aria-selected',String(q));dp.hidden=q;qp.hidden=!q}dt.onclick=()=>tab(false);qt.onclick=()=>tab(true);
 document.getElementById('daily').onclick=()=>show('dr',()=>render(cast(new Date()),'每日运势',''));document.getElementById('ask').onclick=()=>show('qr',()=>render(cast(new Date()),'问题起卦',question.value.trim()));
-try{let s=JSON.parse(localStorage.getItem('baguaBirth')||'null');if(s){by.value=s.y;bm.value=s.m;bd.value=s.d}}catch(e){}convert();\ndocument.addEventListener('click', async function(event) {
+try{let s=JSON.parse(localStorage.getItem('baguaBirth')||'null');if(s){by.value=s.y;bm.value=s.m;bd.value=s.d}}catch(e){}convert();
+document.addEventListener('click', async function(event) {
  const btn = event.target.closest('[data-share-action]');
  if (!btn) return;
  const panel = btn.closest('.share-panel'), result = btn.closest('.result');
