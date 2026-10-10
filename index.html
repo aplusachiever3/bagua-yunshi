@@ -26,11 +26,11 @@ header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;bo
 .visitor-counter .visitor-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#e7e0cf;color:#735a30;font-size:18px}
 .visitor-counter .visitor-label{font-size:12px;color:#64716d}
 .visitor-counter .visitor-number{font-size:22px;font-weight:750;letter-spacing:.08em;font-variant-numeric:tabular-nums}
-.visitor-badge{display:block;width:auto;max-width:100%;height:28px;margin-top:4px}.visitor-counter .visitor-state{width:100%;text-align:center;font-size:11px;color:#64716d}
+.visitor-badge{display:block;width:auto;max-width:100%;height:28px;margin-top:4px}.visitor-counter .visitor-state{width:100%;text-align:center;font-size:11px;color:#64716d}.visitor-fallback{margin-top:6px;font-size:12px;color:#a7352d}.visitor-counter a:focus-visible{outline:2px solid #b88b4a;outline-offset:3px;border-radius:4px}
 </style></head><body>
 <header><small>易理 · 时序 · 自省</small><h1>八卦运势</h1><p>以梅花易数取数规则为参考的传统文化体验</p><div class="brand-mark" aria-label="八卦图"><span class="trigram">乾</span><span class="trigram">兑</span><span class="trigram">离</span><span class="trigram">震</span><span class="trigram">坤</span><span class="trigram">艮</span><span class="trigram">坎</span><span class="trigram">巽</span></div></header><main>
 <section class="card"><h2>出生日期｜阳历转农历</h2><p class="small">输入公历生日，自动转换并显示农历日期。生日只用于日期转换展示，不参与每日运势或问题起卦。</p>
-<div class="grid"><label class="field">出生年<input id="by" type="number" min="1901" max="2099" value="1990"></label><label class="field">出生月<input id="bm" type="number" min="1" max="12" value="6"></label><label class="field">出生日<input id="bd" type="number" min="1" max="31" value="15"></label></div>
+<div class="grid"><label class="field">出生年<input id="by" type="number" inputmode="numeric" step="1" min="1901" max="2099" value="1990" required aria-label="出生年份"></label><label class="field">出生月<input id="bm" type="number" inputmode="numeric" step="1" min="1" max="12" value="6" required aria-label="出生月份"></label><label class="field">出生日<input id="bd" type="number" inputmode="numeric" step="1" min="1" max="31" value="15" required aria-label="出生日期"></label></div>
 <div class="actions"><button class="btn" id="convert">转换为农历</button><button class="btn alt" id="reset">恢复示例日期</button></div><div id="birthResult" class="resultbox" aria-live="polite">示例：1990年6月15日 → 农历庚午年五月廿三。</div><p id="birthError" class="error"></p></section>
 <div class="tabs" role="tablist"><button class="tab" id="dt" role="tab" aria-selected="true">每日运势</button><button class="tab" id="qt" role="tab" aria-selected="false">问题起卦</button></div>
 <section class="card panel" id="dp"><h2>今日一卦</h2><p class="small">使用起卦当下的本地日期与时辰，转换为农历年月日时后计算。生日不会改变本卦。</p><button class="btn" id="daily">生成今日运势</button><div id="dr" class="result" aria-live="polite"></div></section>
@@ -39,9 +39,12 @@ header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;bo
  <div class="visitor-icon" aria-hidden="true">◉</div>
  <div>
   <div class="visitor-label">网站累计访问次数</div>
-  <img class="visitor-badge" src="https://hits.sh/aplusachiever3.github.io-bagua-yunshi.svg?label=visits&amp;view=total&amp;style=flat-square&amp;color=b88b4a&amp;labelColor=172627" alt="网站累计访问次数" loading="eager">
+  <a href="https://hits.sh/aplusachiever3.github.io-bagua-yunshi/" target="_blank" rel="noopener noreferrer" aria-label="查看网站访问统计详情">
+   <img class="visitor-badge" src="https://hits.sh/aplusachiever3.github.io-bagua-yunshi.svg?label=visits&amp;view=total&amp;style=flat-square&amp;color=b88b4a&amp;labelColor=172627" alt="访问次数统计徽章" loading="eager" onerror="this.hidden=true;document.getElementById('visitorFallback').hidden=false">
+  </a>
+  <div id="visitorFallback" class="visitor-fallback" hidden>计数服务暂时无法加载，请稍后刷新</div>
  </div>
- <div class="visitor-state">由独立计数服务统计页面访问次数</div>
+ <div class="visitor-state">累计页面访问量 · 不等于独立访客人数</div>
 </section><p class="footer">八卦运势 · 仅供文化体验</p></main>
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js"></script><script>
 'use strict';
