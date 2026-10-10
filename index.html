@@ -155,18 +155,25 @@ function classifyQuestion(q){
  return {name:'综合问题',focus:'现状、变化与可采取的行动',advice:'先把问题缩小到一个具体目标，并区分已经知道的事实、自己的推测和仍需确认的部分。'};
 }
 function dailyReading(c){
- const items=[
- '今天适合先明确目标，再把重要事情分步骤完成。',
- '今天可多留意沟通方式；把话说清楚，往往比急着争取结果更重要。',
- '今天宜检查细节和已有条件，避免因为一时冲动而仓促决定。',
- '今天可以主动推进一件重要的小事，同时给突发变化留出余地。',
- '今天适合整理计划、修正节奏；不必把每件事都一次做到完美。',
- '今天宜先稳住基础，面对不确定事项时多核实一步。',
- '今天可以适度放慢，辨别哪些事情值得继续投入，哪些需要设下界限。',
- '今天宜重视合作与积累，接受帮助也能成为推进事情的方法。'
- ];
- const index=(c.un+c.ln+c.moving-3+8)%8;
- return items[index];
+ const originalName=hexName(c.un,c.ln);
+ const changedName=hexName(Object.keys(T).find(k=>T[k].n===c.cu.n),Object.keys(T).find(k=>T[k].n===c.cl.n));
+ const original=HEXREADINGS[originalName]||{theme:'观察与调整',reading:'结合实际情况审慎观察。',action:'先采取风险较低、可复核的小步骤。'};
+ const changed=HEXREADINGS[changedName]||original;
+ const line=LINEGUIDANCE[c.moving];
+ const stageActions={
+ 1:'宜从小处启动：先完成一个基础步骤，不急着一次定下全部计划。',
+ 2:'宜稳步执行：把重要任务排进日程，检查细节并保持节奏。',
+ 3:'宜复核风险：遇到压力时先停一步，确认事实后再作决定。',
+ 4:'宜沟通协调：重要安排先讲清期待、分工和边界。',
+ 5:'宜承担关键任务：聚焦最重要的一件事，用实际行动推进。',
+ 6:'宜收尾复盘：避免过度扩张，检查是否需要暂停、调整或结束。'
+ };
+ return '今日主轴是「'+original.theme+'」：'+original.reading+
+ ' 行动参考：'+original.action+
+ ' 动爻提醒（'+line.stage+'）：'+line.text+
+ ' 变卦「'+changedName+'」提示可进一步观察「'+changed.theme+'」；'+changed.action+
+ ' 今日小行动：'+stageActions[c.moving]+
+ ' 以上是依本网页简化取数规则生成的反思提示，不是对事件结果的确定预测。';
 }
 function render(c,title,q){
  const d=c.date,ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'),names=['初','二','三','四','五','上'],mn=names[c.moving-1];
@@ -178,7 +185,7 @@ function render(c,title,q){
  const mainExplain=isDaily?'今日主题：'+reading.theme+'。'+reading.reading:'问题类别：'+topic.name+'；可重点观察「'+topic.focus+'」。本卦主题为「'+reading.theme+'」：'+reading.reading;
  const changedExplain='变卦「'+changedName+'」的主题是「'+changedReading.theme+'」：'+changedReading.reading+' 这代表另一种观察角度，不是对未来结果的保证。';
  const lineRows=c.lines.slice().reverse().map((v,i)=>{const no=6-i,moving=no===c.moving;return '<div class="line-row '+(moving?'is-moving':'')+'"><span class="line-index">'+['上','五','四','三','二','初'][i]+'</span><span class="line '+(v?'yang':'yin')+(moving?' moving':'')+'"><span></span><span></span></span><span class="line-kind">'+(v?'阳':'阴')+'爻'+(moving?' · 动':'')+'</span></div>'}).join('');
- return '<div class="resulthead"><span class="pill">'+title+'</span><h2>'+upperName+' → '+changedName+'</h2><div class="small">'+ds+' · '+ltext(c.l)+' · '+c.hour+'时</div>'+(q?'<p><b>所问：</b>'+esc(q)+'</p>':'')+'<p><span class="focus-label">'+focus+'</span><span class="focus-label">第'+mn+'爻动</span><span class="focus-label">'+reading.theme+'</span></p></div><div class="hexpair"><div class="hexbox"><div class="hex-label">本卦 · 变化前</div><div class="hex">'+lineRows+'</div><div class="hexname">'+upperName+'</div><div class="caption">上'+c.up.n+'（'+c.up.e+'）· 下'+c.low.n+'（'+c.low.e+'）</div></div><div class="hexbox"><div class="hex-label">变卦 · 变化后</div>'+hex(c.changed,0,true)+'<div class="hexname">'+changedName+'</div><div class="caption">上'+c.cu.n+'（'+c.cu.e+'）· 下'+c.cl.n+'（'+c.cl.e+'）</div><div class="caption">由第'+mn+'爻阴阳互换而来</div></div></div><div class="calc"><b>起卦计算过程</b><div>农历年地支：'+c.branch+'（序数 '+c.yn+'）</div><div>农历月：'+c.month+'；农历日：'+c.day+'；时辰：'+c.hour+'（序数 '+c.hn+'）</div><div>上卦：'+c.yn+' + '+c.month+' + '+c.day+' = '+c.base+'；除以8取余（余数为0按8计）→ '+c.un+'（'+c.up.n+'）</div><div>下卦：'+c.base+' + '+c.hn+' = '+(c.base+c.hn)+'；除以8取余（余数为0按8计）→ '+c.ln+'（'+c.low.n+'）</div><div>动爻：'+(c.base+c.hn)+' 除以6取余（余数为0按6计）→ 第 '+c.moving+' 爻（'+mn+'爻动）</div><div class="diagnostic">校验：本卦第'+c.moving+'爻的阴阳已互换，得到变卦</div></div><div class="advice"><h3>一、本卦：'+reading.theme+'</h3><p>'+mainExplain+'</p><p><b>本卦建议：</b>'+reading.action+'</p><h3>二、动爻：变化发生在哪里</h3><p>'+lineText+'</p><h3>三、变卦：变化后的观察方向</h3><p>'+changedExplain+'</p><p><b>变卦建议：</b>'+changedReading.action+'</p><div class="daily-tip"><strong>结合所问的行动建议</strong><p>'+summary+'</p></div><p><b>上下卦象意：</b>'+c.up.m+' '+c.low.m+'</p><p><b>变化后的象意：</b>'+c.cu.m+' '+c.cl.m+'</p></div><section class="share-panel" aria-label="分享算卦结果"><h3>分享这次卦象</h3><p class="share-intro">分享解读摘要和网站链接，朋友打开链接即可访问八卦运势。</p><div class="share-actions"><button type="button" class="share-btn primary" data-share-action="native">系统分享</button><button type="button" class="share-btn" data-share-action="wechat">微信</button><button type="button" class="share-btn" data-share-action="whatsapp">WhatsApp</button><button type="button" class="share-btn" data-share-action="telegram">Telegram</button><button type="button" class="share-btn" data-share-action="facebook">Facebook</button><button type="button" class="share-btn" data-share-action="copy">复制结果和链接</button></div><div class="share-card-tools"><button type="button" class="share-btn primary" data-card-action="generate">生成分享卡图片</button><button type="button" class="share-btn" data-card-action="download" hidden>保存图片</button><button type="button" class="share-btn" data-card-action="share" hidden>分享图片</button></div><div class="share-card-preview" hidden><canvas width="1080" height="1350" aria-label="卦象结果分享卡预览"></canvas><p class="share-card-help">保存后可直接发送到微信朋友圈或 WhatsApp。图片为本次卦象摘要，不包含个人出生资料。</p></div><p class="share-notice" aria-live="polite"></p></section><p class="small">说明：本网页使用简化梅花易数取数规则，并为 64 卦提供对应的主题解读；不同流派可能采用不同取数方式。解读仅供传统文化体验与自我反思，不是确定预测，也不替代医疗、法律、财务等专业判断。</p>';
+ return '<div class="resulthead"><span class="pill">'+title+'</span><h2>'+upperName+' → '+changedName+'</h2><div class="small">'+ds+' · '+ltext(c.l)+' · '+c.hour+'时</div>'+(q?'<p><b>所问：</b>'+esc(q)+'</p>':'')+'<p><span class="focus-label">'+focus+'</span><span class="focus-label">第'+mn+'爻动</span><span class="focus-label">'+reading.theme+'</span></p></div><div class="hexpair"><div class="hexbox"><div class="hex-label">本卦 · 变化前</div><div class="hex">'+lineRows+'</div><div class="hexname">'+upperName+'</div><div class="caption">上'+c.up.n+'（'+c.up.e+'）· 下'+c.low.n+'（'+c.low.e+'）</div></div><div class="hexbox"><div class="hex-label">变卦 · 变化后</div>'+hex(c.changed,0,true)+'<div class="hexname">'+changedName+'</div><div class="caption">上'+c.cu.n+'（'+c.cu.e+'）· 下'+c.cl.n+'（'+c.cl.e+'）</div><div class="caption">由第'+mn+'爻阴阳互换而来</div></div></div><div class="calc"><b>起卦计算过程</b><div>农历年地支：'+c.branch+'（序数 '+c.yn+'）</div><div>农历月：'+c.month+'；农历日：'+c.day+'；时辰：'+c.hour+'（序数 '+c.hn+'）</div><div>上卦：'+c.yn+' + '+c.month+' + '+c.day+' = '+c.base+'；除以8取余（余数为0按8计）→ '+c.un+'（'+c.up.n+'）</div><div>下卦：'+c.base+' + '+c.hn+' = '+(c.base+c.hn)+'；除以8取余（余数为0按8计）→ '+c.ln+'（'+c.low.n+'）</div><div>动爻：'+(c.base+c.hn)+' 除以6取余（余数为0按6计）→ 第 '+c.moving+' 爻（'+mn+'爻动）</div><div class="diagnostic">校验：本卦第'+c.moving+'爻的阴阳已互换，得到变卦</div></div><div class="advice"><h3>一、本卦：'+reading.theme+'</h3><p>'+mainExplain+'</p><p><b>本卦建议：</b>'+reading.action+'</p><h3>二、动爻：变化发生在哪里</h3><p>'+lineText+'</p><h3>三、变卦：变化后的观察方向</h3><p>'+changedExplain+'</p><p><b>变卦建议：</b>'+changedReading.action+'</p><div class="daily-tip"><strong>'+(isDaily?'今日行动建议':'结合所问的行动建议')+'</strong><p>'+summary+'</p></div><p><b>上下卦象意：</b>'+c.up.m+' '+c.low.m+'</p><p><b>变化后的象意：</b>'+c.cu.m+' '+c.cl.m+'</p></div><section class="share-panel" aria-label="分享算卦结果"><h3>分享这次卦象</h3><p class="share-intro">分享解读摘要和网站链接，朋友打开链接即可访问八卦运势。</p><div class="share-actions"><button type="button" class="share-btn primary" data-share-action="native">系统分享</button><button type="button" class="share-btn" data-share-action="wechat">微信</button><button type="button" class="share-btn" data-share-action="whatsapp">WhatsApp</button><button type="button" class="share-btn" data-share-action="telegram">Telegram</button><button type="button" class="share-btn" data-share-action="facebook">Facebook</button><button type="button" class="share-btn" data-share-action="copy">复制结果和链接</button></div><div class="share-card-tools"><button type="button" class="share-btn primary" data-card-action="generate">生成分享卡图片</button><button type="button" class="share-btn" data-card-action="download" hidden>保存图片</button><button type="button" class="share-btn" data-card-action="share" hidden>分享图片</button></div><div class="share-card-preview" hidden><canvas width="1080" height="1350" aria-label="卦象结果分享卡预览"></canvas><p class="share-card-help">保存后可直接发送到微信朋友圈或 WhatsApp。图片为本次卦象摘要，不包含个人出生资料。</p></div><p class="share-notice" aria-live="polite"></p></section><p class="small">说明：本网页使用简化梅花易数取数规则，并为 64 卦提供对应的主题解读；不同流派可能采用不同取数方式。解读仅供传统文化体验与自我反思，不是确定预测，也不替代医疗、法律、财务等专业判断。</p>';
 }
 function show(id,fn){let out=document.getElementById(id);try{out.innerHTML=fn()}catch(e){out.innerHTML='<p class="error">'+esc(e.message||'计算失败，请稍后重试。')+'</p>'}}
 document.getElementById('convert').onclick=convert;document.getElementById('reset').onclick=()=>{by.value=1990;bm.value=6;bd.value=15;convert()};
