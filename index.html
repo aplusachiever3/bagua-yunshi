@@ -181,6 +181,17 @@ function dailyReading(c){
  ' 今日小行动：'+stageActions[c.moving]+
  ' 以上是依本网页简化取数规则生成的反思提示，不是对事件结果的确定预测。';
 }
+const DOMAIN_LENSES={
+'乾':['主动承担、明确目标，但先确认资源与责任边界。','先做预算与风险核对，不把进取等同于冒险。','表达立场时也给对方留下协商空间。','设定清晰目标，拆成阶段任务逐步完成。','留意过度承担与休息不足，避免凡事亲力亲为。'],
+'兑':['善用沟通争取支持，关键承诺要落到文字。','谈钱时讲清条件与细节，避免只听好消息。','真诚交流有帮助，但不要用讨好代替边界。','通过讨论与讲解检验自己是否真正理解。','安排能让自己放松的活动，也留意情绪消耗。'],
+'离':['把重点和依据呈现清楚，避免只追求表面效果。','看清信息来源与实际价值，警惕包装过度的机会。','清楚表达感受，避免误会在猜测中扩大。','适合整理知识结构，用自己的话解释重点。','关注信息过载与作息节奏，适当减少刺激。'],
+'震':['变化来临时先行动一步，同时确认安全与细节。','遇到突发支出先稳住现金流，不仓促下注。','情绪上来时先缓一缓，再展开重要对话。','用短时专注启动任务，之后检查执行质量。','给忙乱的日程留出缓冲，别忽略身体信号。'],
+'巽':['通过持续沟通与小步推进改善工作配合。','多比较条款与长期成本，不被短期优惠带动。','耐心听取对方观点，同时清楚表达自己的底线。','适合循序渐进、重复练习并及时修正方法。','建立稳定的小习惯，避免压力长期累积。'],
+'坎':['先识别工作中的风险点，准备备选路径。','优先核实风险、债务和最坏情境，守住底线。','面对敏感话题时坦诚但谨慎，尊重彼此安全感。','遇到难题先拆解基础概念，逐步验证理解。','不要独自硬扛持续不适，必要时寻求专业帮助。'],
+'艮':['先确定边界与优先级，不必每件事都立即回应。','暂缓非必要的大额决定，先检查预算与义务。','给彼此适当空间，避免在没有共识时强推结果。','减少分心，完成当前一小段后再决定下一步。','留意疲劳信号，适时停下来休息和调整。'],
+'坤':['重视团队分工与稳定交付，不必独揽所有任务。','把基本开支与长期储备放稳，再考虑其他安排。','用照顾与倾听建立关系，也要表达自己的需要。','保持规律练习，善用反馈持续积累。','从睡眠、饮食和日常节奏等基础处开始照顾自己。']
+};
+function domainLens(trigram,domainIndex){return (DOMAIN_LENSES[trigram]||DOMAIN_LENSES['坤'])[domainIndex]}
 function renderDailyDomains(c,reading,changedReading,changedName){
  const seed=c.un+c.ln+c.moving;
  const domains=[
@@ -190,7 +201,7 @@ function renderDailyDomains(c,reading,changedReading,changedName){
   {name:'学习成长',icon:'✧',focus:['适合把目标拆小，通过练习和复盘积累进步。','找到薄弱环节，比重复熟悉的内容更有效。','可借助反馈调整方法，不必急于比较结果。'],caution:['不要因一次失误就否定整体能力。','避免只收藏资料却没有安排实际练习。','不要同时设定太多目标，导致精力分散。'],action:['完成一组针对弱点的练习，并订正错误。','用自己的话复述一个重点，检查是否真正理解。','安排一段专注时间，结束后记下一个改进点。']},
   {name:'身心状态',icon:'☯',focus:['适合留意作息与压力，给日常节奏留出空间。','稳定的基本习惯比短时间内过度用力更重要。','可主动寻求支持，不必把所有压力独自承担。'],caution:['卦象不能判断疾病、诊断症状或预测治疗结果。','不要因忙碌长期忽视休息和基本需要。','若身体或情绪问题持续、加重，请寻求合适的专业帮助。'],action:['为今天安排一段休息或轻度活动时间。','检查睡眠、饮水和用餐等基本习惯是否被忽略。','把困扰写下来，必要时向可信任的人或专业人员求助。']}
  ];
- const cards=domains.map((d,i)=>{const j=(seed+i*2)%3;return '<article class="domain-card"><div class="domain-head"><span class="domain-icon" aria-hidden="true">'+d.icon+'</span><h4>'+d.name+'</h4><span class="domain-tag">今日参考</span></div><p><b>运势参考</b>：以本卦「'+reading.theme+'」为今日观察主轴，结合变卦「'+changedName+'」的「'+changedReading.theme+'」，'+d.focus[j]+'</p><p><b>需要留意</b>：'+d.caution[j]+'</p><p class="domain-action"><b>今日可做</b>：'+d.action[j]+'</p></article>'}).join('');
+ const cards=domains.map((d,i)=>{const j=(seed+i*2)%3;return '<article class="domain-card"><div class="domain-head"><span class="domain-icon" aria-hidden="true">'+d.icon+'</span><h4>'+d.name+'</h4><span class="domain-tag">今日参考</span></div><p><b>运势参考</b>：以本卦「'+reading.theme+'」为今日观察主轴，结合变卦「'+changedName+'」的「'+changedReading.theme+'」，'+d.focus[j]+'</p><p><b>卦象角度</b>：上卦「'+c.up.n+'」提醒'+domainLens(c.up.n,i)+'</p><p><b>需要留意</b>：'+d.caution[j]+'</p><p class="domain-action"><b>今日可做</b>：'+d.action[j]+'</p></article>'}).join('');
  return '<section class="daily-domains" aria-label="每日五大领域运势"><div class="domain-title"><div><span class="domain-eyebrow">DAILY GUIDE</span><h3>每日五大领域运势</h3></div><p>同一卦象，五个生活角度</p></div><p class="domain-intro">以下内容结合本卦主题与变卦方向，提供可实践的自我观察提示；不是概率评分，也不是对未来的保证。</p><div class="domain-grid">'+cards+'</div></section>';
 }
 function render(c,title,q){
