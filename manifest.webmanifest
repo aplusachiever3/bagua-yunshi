@@ -1,15 +1,15 @@
 {
   "id": "./",
-  "name": "八卦运势",
-  "short_name": "八卦运势",
-  "description": "以传统易经文化为参考的每日运势与起卦体验",
+  "name": "小小卦象探索家｜八卦文化乐园",
+  "short_name": "卦象探索家",
+  "description": "给孩子的八卦文化探索角：每日灵感、友善提醒与自我反思，不预测命运。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#e8ece6",
-  "theme_color": "#172627",
+  "background_color": "#f1f8f4",
+  "theme_color": "#276b68",
   "icons": [
     {
       "src": "./icon.svg",
