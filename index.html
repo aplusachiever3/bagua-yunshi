@@ -4,8 +4,25 @@
 <title>八卦运势｜梅花易数</title>
 <style>
 :root{--bg:#e8ece6;--paper:#f8f7f0;--ink:#1a2b2b;--muted:#64716d;--line:#c4cec6;--red:#a7352d;--gold:#b88b4a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}header{padding:30px 16px 24px;text-align:center;background:var(--ink);color:#f5f1e7}header small{color:#e3bd7c;letter-spacing:.3em}h1{font-family:"Songti SC",serif;font-size:clamp(30px,7vw,44px);letter-spacing:.18em;margin:5px 0}header p{margin:0;color:#c2ceca;font-size:14px}main{width:min(760px,100%);padding:20px 14px 48px;margin:auto}.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:15px;box-shadow:0 12px 34px #14262510}h2{font-size:18px;margin:0 0 10px}.small{font-size:13px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.field{display:grid;gap:5px;font-size:13px;color:var(--muted)}input{width:100%;min-width:0;padding:11px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:16px}.btn{border:0;border-radius:8px;padding:11px 15px;background:var(--red);color:#fff;font:inherit;font-weight:650;cursor:pointer}.btn.alt{background:#dfe5dc;color:var(--ink);border:1px solid var(--line)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.resultbox{margin-top:11px;padding:10px 12px;border-left:3px solid var(--gold);background:#ebece4;border-radius:4px}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.tab{padding:12px;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}.tab[aria-selected=true]{background:var(--ink);color:#fff}.panel[hidden]{display:none}.result{margin-top:14px}.result:empty{display:none}.resulthead{text-align:center;border-bottom:1px solid var(--line);padding:8px 0 15px}.pill{display:inline-block;padding:3px 9px;border-radius:99px;background:#e7e0cf;color:#65502c;font-size:12px}.hexpair{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:18px 0}.hexbox{width:140px;text-align:center}.hex{display:flex;flex-direction:column;gap:7px;width:100px;margin:10px auto}.line{height:9px;display:flex;gap:10px;position:relative}.line span{background:var(--ink);flex:1;border-radius:1px}.line.yin span:first-child,.line.yin span:last-child{display:block}.line.yang span:last-child{display:none}.line.moving span{background:var(--red)}.line.moving:after{content:"动";position:absolute;right:-22px;top:-8px;font-size:12px;color:var(--red)}.hexname{font-size:17px;font-weight:700}.caption{font-size:12px;color:var(--muted)}.calc{background:#ecefe8;border-radius:9px;padding:12px;margin-top:12px;font-size:13px;overflow-wrap:anywhere}.calc div+div{margin-top:5px}.advice{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.error{color:#a32222;font-size:13px}.footer{text-align:center;color:var(--muted);font-size:12px;padding-top:4px}@media(min-width:600px){main{padding-top:26px}.card{padding:22px}}
+
+/* visual upgrade */
+header{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 110%,#31504a 0,#1a2b2b 58%);padding-bottom:34px}
+header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;border:1px solid #b88b4a55;border-radius:50%;pointer-events:none}
+.brand-mark{width:154px;height:154px;margin:18px auto 0;position:relative;border-radius:50%;display:grid;place-items:center;background:repeating-conic-gradient(from -22.5deg,#d5b06b 0deg 1deg,transparent 1deg 45deg);animation:wheel-in 1.1s ease-out both}
+.brand-mark:before{content:"";position:absolute;inset:8px;border:1px solid #d5b06b;border-radius:50%;background:radial-gradient(circle,#203b37 0 35%,#172627 36% 67%,#b88b4a 68% 69%,#172627 70%)}
+.brand-mark:after{content:"☯";position:relative;z-index:1;color:#f0d39a;font-size:52px;text-shadow:0 2px 12px #0008}
+.trigram{position:absolute;z-index:2;color:#f7e8c5;font-family:serif;font-size:12px;letter-spacing:.08em;text-shadow:0 1px 3px #000;transform:translate(-50%,-50%)}
+.trigram:nth-child(1){left:50%;top:-2%}.trigram:nth-child(2){left:86%;top:14%}.trigram:nth-child(3){left:100%;top:50%}.trigram:nth-child(4){left:86%;top:86%}.trigram:nth-child(5){left:50%;top:102%}.trigram:nth-child(6){left:14%;top:86%}.trigram:nth-child(7){left:0;top:50%}.trigram:nth-child(8){left:14%;top:14%}
+.card{transition:transform .2s ease,box-shadow .2s ease}.card:focus-within{box-shadow:0 14px 34px #14262518}
+.btn{transition:transform .15s ease,filter .15s ease}.btn:hover{filter:brightness(1.08)}.btn:active{transform:scale(.98)}
+.result{animation:result-in .45s ease both}.hexbox{background:#f1f0e7;border:1px solid #d5d7ca;border-radius:12px;padding:12px 8px;box-shadow:0 4px 12px #1726270a}.hex{gap:8px}.line{height:10px}.line.moving{animation:line-pulse 1.1s ease-in-out infinite}.hexname{margin-top:6px}.hexpair{gap:14px}.resulthead h2{font-family:"Songti SC",serif;letter-spacing:.04em;font-size:22px}.pill{letter-spacing:.08em}.advice{background:#f2f0e7;padding:14px;border-radius:10px;border-top:0}.advice h3{margin:0 0 8px}.advice p{margin:8px 0}.focus-label{display:inline-block;font-size:12px;border:1px solid #d2c4a3;border-radius:99px;padding:2px 8px;margin:2px;color:#735a30;background:#f7f0df}.diagnostic{display:flex;align-items:center;gap:7px;color:#315d48}.diagnostic:before{content:"✓";font-weight:800}.daily-tip{padding:12px;background:#e9eee7;border-radius:9px;margin-top:10px}.daily-tip strong{color:#315d48}
+@keyframes wheel-in{from{opacity:0;transform:rotate(-35deg) scale(.85)}to{opacity:1;transform:rotate(0) scale(1)}}
+@keyframes result-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes line-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.55)}}
+@media(max-width:390px){.card{padding:14px}.hexbox{width:128px;padding:10px 6px}.hex{width:88px}.brand-mark{width:136px;height:136px}.actions .btn{flex:1}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style></head><body>
-<header><small>易理 · 时序 · 自省</small><h1>八卦运势</h1><p>以梅花易数取数规则为参考的传统文化体验</p></header><main>
+<header><small>易理 · 时序 · 自省</small><h1>八卦运势</h1><p>以梅花易数取数规则为参考的传统文化体验</p><div class="brand-mark" aria-label="八卦图"><span class="trigram">乾</span><span class="trigram">兑</span><span class="trigram">离</span><span class="trigram">震</span><span class="trigram">坤</span><span class="trigram">艮</span><span class="trigram">坎</span><span class="trigram">巽</span></div></header><main>
 <section class="card"><h2>出生日期｜阳历转农历</h2><p class="small">输入公历生日，自动转换并显示农历日期。生日只用于日期转换展示，不参与每日运势或问题起卦。</p>
 <div class="grid"><label class="field">出生年<input id="by" type="number" min="1901" max="2099" value="1990"></label><label class="field">出生月<input id="bm" type="number" min="1" max="12" value="6"></label><label class="field">出生日<input id="bd" type="number" min="1" max="31" value="15"></label></div>
 <div class="actions"><button class="btn" id="convert">转换为农历</button><button class="btn alt" id="reset">恢复示例日期</button></div><div id="birthResult" class="resultbox" aria-live="polite">示例：1990年6月15日 → 农历庚午年五月廿三。</div><p id="birthError" class="error"></p></section>
@@ -23,7 +40,51 @@ function convert(){let y=+by.value,m=+bm.value,d=+bd.value;birthError.textConten
 function cast(date){let l=lunar(date.getFullYear(),date.getMonth()+1,date.getDate()),branch=l.getYearZhi(),yn=B[branch];if(!yn)throw Error('无法识别农历年地支。');let month=Math.abs(l.getMonth()),day=l.getDay(),hour=hourBranch(date),hn=B[hour],base=yn+month+day,un=mod(base,8),ln=mod(base+hn,8),moving=mod(base+hn,6),up=T[un],low=T[ln],lines=[...low.b,...up.b],changed=lines.slice();changed[moving-1]=changed[moving-1]?0:1;let find=a=>Object.values(T).find(t=>t.b.join('')===a.join(''))||T[8];return {date,l,branch,yn,month,day,hour,hn,base,un,ln,moving,up,low,lines,changed,cu:find(changed.slice(3)),cl:find(changed.slice(0,3))}}
 function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function hex(bits,moving,changed){return '<div class="hex">'+bits.slice().reverse().map((v,i)=>{let lineNo=5-i;return '<div class="line '+(v?'yang':'yin')+(!changed&&lineNo===moving-1?' moving':'')+'"><span></span><span></span></div>'}).join('')+'</div>'}
-function render(c,title,q){let d=c.date,ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'),names=['初','二','三','四','五','上'],mn=names[c.moving-1];return '<div class="resulthead"><span class="pill">'+title+'</span><h2>'+c.up.n+c.low.n+'卦 → '+c.cu.n+c.cl.n+'卦</h2><div class="small">'+ds+' · '+ltext(c.l)+' · '+c.hour+'时</div>'+(q?'<p><b>所问：</b>'+esc(q)+'</p>':'')+'</div><div class="hexpair"><div class="hexbox">'+hex(c.lines,c.moving,false)+'<div class="hexname">本卦：'+c.up.n+c.low.n+'</div><div class="caption">上'+c.up.e+'下'+c.low.e+'</div></div><div class="hexbox">'+hex(c.changed,0,true)+'<div class="hexname">变卦：'+c.cu.n+c.cl.n+'</div><div class="caption">上'+c.cu.e+'下'+c.cl.e+'</div></div></div><div class="calc"><b>计算过程</b><div>农历年地支：'+c.branch+'（序数 '+c.yn+'）</div><div>农历月：'+c.month+'；农历日：'+c.day+'；时辰：'+c.hour+'（序数 '+c.hn+'）</div><div>上卦：'+c.yn+' + '+c.month+' + '+c.day+' = '+c.base+'；除以8取余 → '+c.un+'（'+c.up.n+'）</div><div>下卦：'+c.base+' + '+c.hn+' = '+(c.base+c.hn)+'；除以8取余 → '+c.ln+'（'+c.low.n+'）</div><div>动爻：'+(c.base+c.hn)+' 除以6取余 → 第 '+c.moving+' 爻（'+mn+'爻动）</div></div><div class="advice"><h3>卦象提示</h3><p><b>本卦：</b>'+c.up.m+' '+c.low.m+'</p><p><b>动爻：</b>第'+mn+'爻为变化焦点。宜结合现实情况，观察当前最需要调整的一处。</p><p><b>变卦：</b>'+c.cu.m+' '+c.cl.m+'</p></div><p class="small">本结果按网页简化规则计算；不同流派的取数、闰月与子时换日规则可能不同。</p>'}
+const HEXNAMES=[
+['乾为天','天泽履','天火同人','天雷无妄','天风姤','天水讼','天山遁','天地否'],
+['泽天夬','兑为泽','泽火革','泽雷随','泽风大过','泽水困','泽山咸','泽地萃'],
+['火天大有','火泽睽','离为火','火雷噬嗑','火风鼎','火水未济','火山旅','火地晋'],
+['雷天大壮','雷泽归妹','雷火丰','震为雷','雷风恒','雷水解','雷山小过','雷地豫'],
+['风天小畜','风泽中孚','风火家人','风雷益','巽为风','风水涣','风山渐','风地观'],
+['水天需','水泽节','水火既济','水雷屯','水风井','坎为水','水山蹇','水地比'],
+['山天大畜','山泽损','山火贲','山雷颐','山风蛊','山水蒙','艮为山','山地剥'],
+['地天泰','地泽临','地火明夷','地雷复','地风升','地水师','地山谦','坤为地']
+];
+function hexName(up,low){return HEXNAMES[up-1][low-1]}
+function classifyQuestion(q){
+ const x=(q||'').toLowerCase();
+ if(/感情|恋爱|爱情|男朋友|女朋友|伴侣|婚姻|结婚|复合|喜欢我|联系我|他会|她会/.test(x))return {name:'感情关系',focus:'沟通、边界与双方互动',advice:'不要只根据对方的一次反应下结论。留意持续的行为与实际沟通，也清楚表达自己的需要。'};
+ if(/工作|面试|升职|辞职|换工作|同事|老板|事业|创业|求职|offer|职位/.test(x))return {name:'工作事业',focus:'准备、时机与合作',advice:'把目标拆成可验证的步骤，准备具体证据，并为不确定的结果保留备选方案。'};
+ if(/钱|财|投资|股票|基金|收入|生意|赚钱|财运|买房|房产|贷款/.test(x))return {name:'财务选择',focus:'风险、资源与决策纪律',advice:'不要把卦象当成投资预测。先核实数据、现金流、最坏情境与可承受损失，再做决定。'};
+ if(/考试|学业|学习|成绩|升学|学校|课程|学生/.test(x))return {name:'学业学习',focus:'准备程度、方法与持续练习',advice:'优先找出最薄弱的一环，安排可执行的练习和复盘，而不是只等待结果。'};
+ if(/健康|生病|症状|治疗|手术|药|怀孕/.test(x))return {name:'健康关切',focus:'现实信息、支持与谨慎判断',advice:'卦象不能诊断疾病或预测治疗结果；涉及健康请以合格医疗专业人员的评估为准。'};
+ if(/选择|要不要|该不该|怎么办|是否|还是|决定|适合吗|能不能/.test(x))return {name:'选择与行动',focus:'选项、代价与下一步',advice:'把选项、成本、可逆性和最坏情况写下来；先做一个风险较低、能获得新信息的小步骤。'};
+ return {name:'综合问题',focus:'现状、变化与可采取的行动',advice:'先把问题缩小到一个具体目标，并区分已经知道的事实、自己的推测和仍需确认的部分。'};
+}
+function dailyReading(c){
+ const items=[
+ '今天适合先明确目标，再把重要事情分步骤完成。',
+ '今天可多留意沟通方式；把话说清楚，往往比急着争取结果更重要。',
+ '今天宜检查细节和已有条件，避免因为一时冲动而仓促决定。',
+ '今天可以主动推进一件重要的小事，同时给突发变化留出余地。',
+ '今天适合整理计划、修正节奏；不必把每件事都一次做到完美。',
+ '今天宜先稳住基础，面对不确定事项时多核实一步。',
+ '今天可以适度放慢，辨别哪些事情值得继续投入，哪些需要设下界限。',
+ '今天宜重视合作与积累，接受帮助也能成为推进事情的方法。'
+ ];
+ const index=(c.un+c.ln+c.moving-3+8)%8;
+ return items[index];
+}
+function render(c,title,q){
+ const d=c.date,ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'),names=['初','二','三','四','五','上'],mn=names[c.moving-1];
+ const upperName=hexName(c.un,c.ln),changedName=hexName(c.cu===T[1]?1:Object.keys(T).find(k=>T[k].n===c.cu.n),c.cl===T[1]?1:Object.keys(T).find(k=>T[k].n===c.cl.n));
+ const isDaily=title==='每日运势',topic=isDaily?null:classifyQuestion(q);
+ const focus=isDaily?'今日节奏':topic.name;
+ const summary=isDaily?dailyReading(c):topic.advice;
+ const mainExplain=isDaily?'今日卦象提示：'+c.up.m+' '+c.low.m:'问题类别：'+topic.name+'。结合卦象可重点观察「'+topic.focus+'」。';
+ const changedExplain=isDaily?'把提示当作今天的提醒，不必将它视为固定命运。':'变卦提供另一种观察角度；实际结果仍取决于信息、选择和环境变化。';
+ return '<div class="resulthead"><span class="pill">'+title+'</span><h2>'+upperName+' → '+changedName+'</h2><div class="small">'+ds+' · '+ltext(c.l)+' · '+c.hour+'时</div>'+(q?'<p><b>所问：</b>'+esc(q)+'</p>':'')+'<p><span class="focus-label">'+focus+'</span><span class="focus-label">第'+mn+'爻动</span></p></div><div class="hexpair"><div class="hexbox">'+hex(c.lines,c.moving,false)+'<div class="hexname">本卦：'+upperName+'</div><div class="caption">上'+c.up.n+'（'+c.up.e+'）· 下'+c.low.n+'（'+c.low.e+'）</div></div><div class="hexbox">'+hex(c.changed,0,true)+'<div class="hexname">变卦：'+changedName+'</div><div class="caption">上'+c.cu.n+'（'+c.cu.e+'）· 下'+c.cl.n+'（'+c.cl.e+'）</div></div></div><div class="calc"><b>起卦计算过程</b><div>农历年地支：'+c.branch+'（序数 '+c.yn+'）</div><div>农历月：'+c.month+'；农历日：'+c.day+'；时辰：'+c.hour+'（序数 '+c.hn+'）</div><div>上卦：'+c.yn+' + '+c.month+' + '+c.day+' = '+c.base+'；除以8取余 → '+c.un+'（'+c.up.n+'）</div><div>下卦：'+c.base+' + '+c.hn+' = '+(c.base+c.hn)+'；除以8取余 → '+c.ln+'（'+c.low.n+'）</div><div>动爻：'+(c.base+c.hn)+' 除以6取余 → 第 '+c.moving+' 爻（'+mn+'爻动）</div><div class="diagnostic">本卦、动爻与变卦已按同一组六爻数据计算</div></div><div class="advice"><h3>解读重点</h3><p><b>本卦 · 当前观察：</b>'+mainExplain+'</p><p><b>动爻 · 变化焦点：</b>第'+mn+'爻为本次变化位置。建议留意当前最需要调整的环节，而不是只看吉凶。</p><p><b>变卦 · 后续思考：</b>'+changedExplain+'</p><div class="daily-tip"><strong>行动建议</strong><p>'+summary+'</p></div><p><b>上下卦象意：</b>'+c.up.m+' '+c.low.m+'</p><p><b>变化后的象意：</b>'+c.cu.m+' '+c.cl.m+'</p></div><p class="small">说明：本网页采用简化取数规则；问题类别只改变解读重点，不会改变同一时刻的起卦数。卦象属于传统文化参考，不是对未来的确定预测。</p>';
+}
 function show(id,fn){let out=document.getElementById(id);try{out.innerHTML=fn()}catch(e){out.innerHTML='<p class="error">'+esc(e.message||'计算失败，请稍后重试。')+'</p>'}}
 document.getElementById('convert').onclick=convert;document.getElementById('reset').onclick=()=>{by.value=1990;bm.value=6;bd.value=15;convert()};
 function tab(q){dt.setAttribute('aria-selected',String(!q));qt.setAttribute('aria-selected',String(q));dp.hidden=q;qp.hidden=!q}dt.onclick=()=>tab(false);qt.onclick=()=>tab(true);
