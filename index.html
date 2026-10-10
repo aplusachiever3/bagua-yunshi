@@ -21,6 +21,12 @@ header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;bo
 @keyframes line-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.55)}}
 @media(max-width:390px){.card{padding:14px}.hexbox{width:128px;padding:10px 6px}.hex{width:88px}.brand-mark{width:136px;height:136px}.actions .btn{flex:1}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+.visitor-counter{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px auto 12px;padding:12px 16px;max-width:360px;border:1px solid #c4cec6;border-radius:12px;background:#f8f7f0;color:#1a2b2b;box-shadow:0 5px 18px #1426250a}
+.visitor-counter .visitor-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#e7e0cf;color:#735a30;font-size:18px}
+.visitor-counter .visitor-label{font-size:12px;color:#64716d}
+.visitor-counter .visitor-number{font-size:22px;font-weight:750;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.visitor-counter .visitor-state{width:100%;text-align:center;font-size:11px;color:#64716d}
 </style></head><body>
 <header><small>易理 · 时序 · 自省</small><h1>八卦运势</h1><p>以梅花易数取数规则为参考的传统文化体验</p><div class="brand-mark" aria-label="八卦图"><span class="trigram">乾</span><span class="trigram">兑</span><span class="trigram">离</span><span class="trigram">震</span><span class="trigram">坤</span><span class="trigram">艮</span><span class="trigram">坎</span><span class="trigram">巽</span></div></header><main>
 <section class="card"><h2>出生日期｜阳历转农历</h2><p class="small">输入公历生日，自动转换并显示农历日期。生日只用于日期转换展示，不参与每日运势或问题起卦。</p>
@@ -29,7 +35,7 @@ header:after{content:"";position:absolute;inset:auto -15% -110px;height:180px;bo
 <div class="tabs" role="tablist"><button class="tab" id="dt" role="tab" aria-selected="true">每日运势</button><button class="tab" id="qt" role="tab" aria-selected="false">问题起卦</button></div>
 <section class="card panel" id="dp"><h2>今日一卦</h2><p class="small">使用起卦当下的本地日期与时辰，转换为农历年月日时后计算。生日不会改变本卦。</p><button class="btn" id="daily">生成今日运势</button><div id="dr" class="result" aria-live="polite"></div></section>
 <section class="card panel" id="qp" hidden><h2>心中所问</h2><p class="small">先静心想清楚问题，再按下起卦。计算时间以按下按钮时的本地时间为准。</p><label class="field">你的问题（可选）<input id="question" maxlength="100" placeholder="例如：这周的面试应如何准备？"></label><div class="actions"><button class="btn" id="ask">针对问题起卦</button></div><div id="qr" class="result" aria-live="polite"></div></section>
-<section class="card"><h2>本网页采用的取数说明</h2><p class="small">这是明确标注的简化梅花易数演示规则，不代表所有传承流派的唯一算法：</p><ul class="small"><li>上卦数＝农历年地支序数＋农历月＋农历日，除以 8 取余；余数为 0 按 8 计。</li><li>下卦数＝年地支序数＋农历月＋农历日＋时辰序数，除以 8 取余；余数为 0 按 8 计。</li><li>动爻数＝年地支序数＋农历月＋农历日＋时辰序数，除以 6 取余；余数为 0 按 6 计。</li><li>变卦由本卦对应动爻阴阳互换得到。闰月按月份绝对值参与简化计算；不同流派对闰月、子时换日和真太阳时可能有不同规定。</li></ul><p class="small">农历转换需要联网加载日期库；若 CDN 不可用，请检查网络后刷新。结果仅供传统文化体验与自我反思，不替代医疗、法律、财务等重要决策。</p></section><p class="footer">八卦运势 · 仅供文化体验</p></main>
+<section class="card"><h2>本网页采用的取数说明</h2><p class="small">这是明确标注的简化梅花易数演示规则，不代表所有传承流派的唯一算法：</p><ul class="small"><li>上卦数＝农历年地支序数＋农历月＋农历日，除以 8 取余；余数为 0 按 8 计。</li><li>下卦数＝年地支序数＋农历月＋农历日＋时辰序数，除以 8 取余；余数为 0 按 8 计。</li><li>动爻数＝年地支序数＋农历月＋农历日＋时辰序数，除以 6 取余；余数为 0 按 6 计。</li><li>变卦由本卦对应动爻阴阳互换得到。闰月按月份绝对值参与简化计算；不同流派对闰月、子时换日和真太阳时可能有不同规定。</li></ul><p class="small">农历转换需要联网加载日期库；若 CDN 不可用，请检查网络后刷新。结果仅供传统文化体验与自我反思，不替代医疗、法律、财务等重要决策。</p></section><section class="visitor-counter" aria-label="网站访问计数器"><div class="visitor-icon" aria-hidden="true">◉</div><div><div class="visitor-label">网站累计访问次数</div><div class="visitor-number" id="visitorCount" aria-live="polite">载入中…</div></div><div class="visitor-state" id="visitorState">正在读取访问统计</div></section><p class="footer">八卦运势 · 仅供文化体验</p></main>
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js"></script><script>
 'use strict';
 const T={1:{n:'乾',b:[1,1,1],e:'天',m:'刚健自强，宜主动而不逞强。'},2:{n:'兑',b:[1,1,0],e:'泽',m:'以沟通和悦化解阻力。'},3:{n:'离',b:[1,0,1],e:'火',m:'看清重点，适合表达与展示。'},4:{n:'震',b:[1,0,0],e:'雷',m:'变化中保持行动，也要留意细节。'},5:{n:'巽',b:[0,1,1],e:'风',m:'顺势协调，耐心推进。'},6:{n:'坎',b:[0,1,0],e:'水',m:'谨慎识险，先稳住基础。'},7:{n:'艮',b:[0,0,1],e:'山',m:'适时暂停，守住边界。'},8:{n:'坤',b:[0,0,0],e:'地',m:'厚实承接，合作比争先重要。'}};
@@ -90,4 +96,19 @@ document.getElementById('convert').onclick=convert;document.getElementById('rese
 function tab(q){dt.setAttribute('aria-selected',String(!q));qt.setAttribute('aria-selected',String(q));dp.hidden=q;qp.hidden=!q}dt.onclick=()=>tab(false);qt.onclick=()=>tab(true);
 document.getElementById('daily').onclick=()=>show('dr',()=>render(cast(new Date()),'每日运势',''));document.getElementById('ask').onclick=()=>show('qr',()=>render(cast(new Date()),'问题起卦',question.value.trim()));
 try{let s=JSON.parse(localStorage.getItem('baguaBirth')||'null');if(s){by.value=s.y;bm.value=s.m;bd.value=s.d}}catch(e){}convert();
+(async function loadVisitorCounter(){
+ const number=document.getElementById('visitorCount'),state=document.getElementById('visitorState');
+ try{
+   const response=await fetch('https://api.counterapi.dev/v1/bagua-yunshi/visits/up',{method:'GET',cache:'no-store'});
+   if(!response.ok)throw new Error('统计服务暂不可用');
+   const data=await response.json();
+   const count=Number(data.count);
+   if(!Number.isFinite(count)||count<0)throw new Error('统计数据格式不正确');
+   number.textContent=count.toLocaleString('zh-SG');
+   state.textContent='每次打开网页计为一次访问';
+ }catch(e){
+   number.textContent='暂不可用';
+   state.textContent='访问统计服务暂时无法连接，请稍后刷新';
+ }
+})();
 </script></body></html>
