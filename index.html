@@ -359,27 +359,30 @@ document.addEventListener('click', async function(event) {
  const panel = btn.closest('.share-panel'), result = btn.closest('.result');
  if (!panel || !result) return;
  const notice = panel.querySelector('.share-notice');
- const hexTitle = result.querySelector('.resulthead h2')?.textContent.trim() || '八卦运势结果';
- const badge = result.querySelector('.resulthead .pill')?.textContent.trim() || '起卦结果';
- const dateText = result.querySelector('.resulthead .small')?.textContent.trim() || '';
- const questionText = [...result.querySelectorAll('.resulthead p')].map(p => p.textContent.replace(/\\s+/g,' ').trim()).find(t => t.startsWith('所问：')) || '';
- const themeText = result.querySelector('.resulthead .focus-label:nth-child(3)')?.textContent.trim() || '';
- const movingText = [...result.querySelectorAll('.resulthead .focus-label')].map(el=>el.textContent.trim()).find(t=>t.includes('爻动')) || '';
- const tip = result.querySelector('.daily-tip p')?.textContent.replace(/\\s+/g,' ').trim() || '';
- const actionText = tip.length > 125 ? tip.slice(0,122).replace(/[，、；：。\s]+$/,'')+'…' : tip;
+ const hexTitle = (result.querySelector('.resulthead h2')?.textContent || '卦象结果').replace(/\s+/g,' ').trim();
+ const badge = (result.querySelector('.resulthead .pill')?.textContent || '起卦结果').replace(/\s+/g,' ').trim();
+ const dateText = (result.querySelector('.resulthead .small')?.textContent || '').replace(/\s+/g,' ').trim();
+ const questionText = [...result.querySelectorAll('.resulthead p')].map(p=>p.textContent.replace(/\s+/g,' ').trim()).find(t=>t.startsWith('所问：')) || '';
+ const labels = [...result.querySelectorAll('.resulthead .focus-label')].map(el=>el.textContent.replace(/\s+/g,' ').trim());
+ const themeText = labels.find(t=>!t.includes('爻动') && t!=='今日节奏') || '';
+ const movingText = labels.find(t=>t.includes('爻动')) || '';
+ const fullTip = (result.querySelector('.daily-tip p')?.textContent || '').replace(/\s+/g,' ').trim();
+ const smallAction = fullTip.match(/今日小行动：\s*([^。]+。?)/);
+ const shortTip = smallAction ? smallAction[1].trim() : (fullTip.length > 72 ? fullTip.slice(0,69).replace(/[，、；：\s]+$/,'')+'…' : fullTip);
  const siteUrl = SITE_URL;
- const shareText = [
+ const lines = [
   '【八卦运势｜'+badge+'】',
-  '本卦与变卦：'+hexTitle,
-  themeText ? '今日主题：'+themeText : '',
-  movingText ? '变化提示：'+movingText : '',
+  '卦象：'+hexTitle,
+  themeText ? '主题：'+themeText : '',
+  movingText ? '动爻：'+movingText : '',
   dateText ? '起卦时间：'+dateText : '',
   questionText,
-  actionText ? '行动参考：'+actionText : '',
+  shortTip ? '行动参考：'+shortTip : '',
   '',
-  '传统文化体验与自我反思，仅供参考。',
-  '访问网站：'+siteUrl
- ].filter(Boolean).join('\\n');
+  '传统文化体验，仅供参考。',
+  '网站：'+siteUrl
+ ];
+ const shareText = lines.filter(Boolean).join('\n');
  const copyText = async () => {
   if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(shareText); return true; }
   const area = document.createElement('textarea'); area.value = shareText; area.style.position = 'fixed'; area.style.opacity = '0';
@@ -389,21 +392,21 @@ document.addEventListener('click', async function(event) {
  try {
   const action = btn.dataset.shareAction;
   if (action === 'native') {
-   if (navigator.share) { await navigator.share({title: '八卦运势｜' + hexTitle, text: shareText, url: siteUrl}); notice.textContent = '已打开系统分享面板。'; }
-   else { await copyText(); notice.textContent = '此浏览器不支持系统分享，已复制分享内容。'; }
+   if (navigator.share) { await navigator.share({title:'八卦运势｜'+hexTitle, text:shareText}); notice.textContent='已打开系统分享面板。'; }
+   else { await copyText(); notice.textContent='此浏览器不支持系统分享，已复制分享内容。'; }
   } else if (action === 'wechat') {
-   await copyText(); notice.textContent = '已复制结果和网站链接。请打开微信，粘贴到聊天或朋友圈。';
+   await copyText(); notice.textContent='已复制简洁摘要和网站链接。请打开微信后粘贴。';
   } else if (action === 'copy') {
-   await copyText(); notice.textContent = '已复制结果和网站链接，可以粘贴分享。';
+   await copyText(); notice.textContent='已复制简洁摘要和网站链接，可以粘贴分享。';
   } else if (action === 'whatsapp') {
-   window.open('https://wa.me/?text=' + encodeURIComponent(shareText), '_blank', 'noopener,noreferrer');
+   window.open('https://wa.me/?text='+encodeURIComponent(shareText), '_blank', 'noopener,noreferrer');
   } else if (action === 'telegram') {
-   window.open('https://t.me/share/url?url=' + encodeURIComponent(siteUrl) + '&text=' + encodeURIComponent(shareText.replace('\\n网站：' + siteUrl, '')), '_blank', 'noopener,noreferrer');
+   window.open('https://t.me/share/url?url='+encodeURIComponent(siteUrl)+'&text='+encodeURIComponent(shareText.replace('\n网站：'+siteUrl,'')), '_blank', 'noopener,noreferrer');
   } else if (action === 'facebook') {
-   window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(siteUrl) + '&quote=' + encodeURIComponent(shareText), '_blank', 'noopener,noreferrer');
+   window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(siteUrl)+'&quote='+encodeURIComponent(shareText), '_blank', 'noopener,noreferrer');
   }
  } catch (error) {
-  if (error.name !== 'AbortError') notice.textContent = error.message || '分享未能完成，请尝试复制结果和链接。';
+  if (error.name !== 'AbortError') notice.textContent=error.message || '分享未能完成，请尝试复制结果和链接。';
  }
 });
 </script></body></html>
