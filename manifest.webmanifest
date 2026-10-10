@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "八卦运势",
+  "short_name": "八卦运势",
+  "description": "以传统易经文化为参考的每日运势与起卦体验",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#e8ece6",
+  "theme_color": "#172627",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
